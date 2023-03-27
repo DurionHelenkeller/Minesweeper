@@ -39,6 +39,3 @@ else:
   
 print(name + " asks " + question)
 print("Magic 8 Ball's answer: " + response)
-
-  
-https://tenor.com/view/magic8ball-yes-says-yes-gif-20236294
