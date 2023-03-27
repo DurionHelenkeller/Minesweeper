@@ -1,1 +1,43 @@
+import random
 
+name = "Andy"
+response = " "
+question = "Will I get a girlfriend?"
+
+random_number = random.randomint (1, 9)
+print = "random_number"
+
+if random_number == 1:
+  answer = "Sure why not"
+  
+elif random_number == 2:
+  answer = "Not in a million years"
+  
+elif random_number == 3:
+  answer = "Maybe"
+  
+elif random_number == 4:
+  answer = "Try again"
+
+elif random_number == 5:
+  answer = "Probably"
+
+elif random_number == 6:
+  answer = "What if?"
+  
+elif random_number == 7:
+  answer = "Certainly!"
+  
+elif random_number == 8:
+  answer = "Tell you later"
+  
+elif random number == 9:
+  answer = "Good Luck"
+
+else:
+  answer = "Error"
+  
+print = name + " asks: " + question
+print = "Magic 8 ball's response: " + response
+
+  
