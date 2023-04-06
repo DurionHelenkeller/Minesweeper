@@ -7,7 +7,7 @@ class HashMap:
     self.array = [LinkedList() for number in range(size)]
     
    def hash(self, key):
-    return sum(key.encode(key))
+    return sum(key.encode())
 
    def compress(self, hash_code):
     return hash_code % self.array_size
