@@ -1,0 +1,54 @@
+1
+SELECT AVG(people.weight), teams.name FROM people, batting, teams WHERE people.playerid = batting.playerid AND batting.teamid = teams.teamid GROUP BY teams.name ORDER BY 1 DESC;
+Miami Marlins
+
+2
+SELECT AVG(people.height), teams.name FROM people, batting, teams WHERE people.playerid = batting.playerid AND batting.teamid = teams.teamid GROUP BY teams.name ORDER BY 1 ASC; 
+Middletown Mansfields
+
+3
+WITH sums AS (SELECT SUM(salaries.salary), teams.name, salaries.yearid FROM people, salaries, teams WHERE people.playerid = salaries.playerid AND salaries.teamid = teams.teamid GROUP BY teams.name, salaries.yearid ORDER BY 3 DESC) SELECT MAX (sum), yearid FROM sums GROUP BY yearid ORDER BY yearid;
+1523487828
+SELECT
+		SUM(salary),
+    teams.name,
+    salaries.yearid
+FROM salaries
+LEFT JOIN teams
+		ON teams.teamid = salaries.teamid
+    AND teams.yearid = salaries.yearid
+GROUP BY
+		teams.name,
+		salaries.yearid
+ORDER BY
+		SUM(salary)
+    DESC;
+New York Yankees
+
+4
+SELECT ROUND(SUM(salaries.salary)/teams.w), teams.name, salaries.yearid FROM salaries, teams WHERE salaries.teamid= teams.teamid AND teams.yearid = salaries.yearid AND salaries.yearid=2010 GROUP BY teams.name, salaries.yearid, teams.w ORDER BY 1 ASC;
+San Diego Padres
+
+5
+SELECT
+ people.namefirst,
+ people.namelast,
+ salaries.salary/pitching.g as cost_per_game,
+ salaries.yearid,
+ pitching.g
+FROM salaries
+INNER JOIN pitching
+ ON salaries.playerid = pitching.playerid
+ AND salaries.yearid = pitching.yearid
+ AND salaries.teamid = pitching.teamid
+INNER JOIN people
+ ON salaries.playerid = people.playerid
+WHERE pitching.g > 10
+ORDER BY
+ salaries.salary/pitching.g
+ DESC;
+Cliff Lee
+
+6
+SELECT schools.name_full, collegeplaying.schoolid, COUNT (people.playerid) FROM schools, collegeplaying, people WHERE people.playerid = collegeplaying.playerid AND schools.schoolid = collegeplaying.schoolid GROUP BY schools.schoolid, schools.name_full, collegeplaying.schoolid ORDER BY COUNT(people.playerid) ASC;
+Least pro players school: Western Connecticut State University  
