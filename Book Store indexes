@@ -51,12 +51,26 @@ SELECT *
 FROM pg_Indexes
 WHERE tablename = 'orders';
 
-SELECT NOW();
+/*SELECT NOW();
  
 \COPY orders FROM 'orders_add.txt' DELIMITER ',' CSV HEADER;
  
-SELECT NOW();
+SELECT NOW();*/
+
+SELECT
+  *
+FROM
+  pg_Indexes
+WHERE
+  tablename = 'books';
 
 DROP INDEX IF EXISTS books_original_language_title_sales_in_millions_idx;
 DROP INDEX IF EXISTS 
 customer_id_idx;
+
+SELECT
+  *
+FROM
+  pg_Indexes
+WHERE
+  tablename = 'books';
