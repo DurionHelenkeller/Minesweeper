@@ -129,7 +129,7 @@ class UltraSuperCalculator:
     elif(opcode == '100001'):
       self.get_last_calculation()
       return
-    elif(opcode == '000000'):
+    elif(opcode != '000000'):
       self.update_display("Invalid OPCODE")
       return
 
