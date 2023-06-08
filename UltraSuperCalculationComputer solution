@@ -110,6 +110,11 @@ class UltraSuperCalculator:
   def get_last_calculation(self):
     self.temp_history_index -= 1
     last_value = f"The last calculated value was: {(self.history_registers[self.temp_history_index], 2)}"
+#    from_register = self.history_registers[self.temp_history_index]
+#   if isinstance(from_register, str):
+#      last_value = f"Last result = {int(from_register, 2)}"
+#    else:
+#      last_value = f"Last result = {from_register}"
 
     self.update_display(last_value)
     
