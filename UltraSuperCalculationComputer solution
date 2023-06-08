@@ -70,7 +70,7 @@ class UltraSuperCalculator:
     return int_value
 
   def store_to_history_register(self, result_to_store):
-    if(self.history_index < 9):
+    if(self.history_index > 9):
       self.history_index = 0
       self.history_registers[self.history_index] = bin(result_to_store)
       self.history_index += 1
