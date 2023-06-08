@@ -69,8 +69,8 @@ class UltraSuperCalculator:
     int_value = int(self.number_registers[index])
     return int_value
 
-  def store_history_register(self, result_to_store):
-    if (self.history_index < 9):
+  def store_to_history_register(self, result_to_store):
+    if(self.history_index < 9):
       self.history_index = 0
       self.history_registers[self.history_index] = bin(result_to_store)
       self.history_index += 1
@@ -83,8 +83,8 @@ class UltraSuperCalculator:
     return calculated_value
 
   def subtract(self, address_num1, address_num2):
-    num1 = self.load_value_register(address_num1)
-    num2 = self.load_value_register(address_num2)
+    num1 = self.load_value_from_register(address_num1)
+    num2 = self.load_value_from_register(address_num2)
     calculated_value = num1 - num2
     return calculated_value
 
@@ -94,7 +94,7 @@ class UltraSuperCalculator:
     calculated_value = num1 * num2
     return calculated_value
 
-  def divide(self, addess_num1, address_num2):
+  def divide(self, address_num1, address_num2):
     num1 = self.load_value_from_register(address_num1)
     num2 = self.load_value_from_register(address_num2)
 
@@ -113,7 +113,7 @@ class UltraSuperCalculator:
     self.update_display(last_value)
     
   def binary_reader(self, instruction):
-    if (len(instruction) != 32):
+    if(len(instruction) != 32):
       self.update_display("Invalid Instruction Length")
       return
       
@@ -144,10 +144,10 @@ class UltraSuperCalculator:
     elif(function_code == '011010'):
       result = self.divide(source_one, source_two)
     else:
-      self.update_display("Invalid Function")
+      self.update_display("Invalid Function Code")
       return
     
-    self.store_history_register(result)
+    self.store_to_history_register(result)
     self.update_display(f"Calculated Result: {result}")
 
 your_calculator = UltraSuperCalculator("Andres")
