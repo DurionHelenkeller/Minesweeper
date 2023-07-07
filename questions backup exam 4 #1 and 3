@@ -1,0 +1,15 @@
+#1
+def insert_end(self, new_value):
+    current_node = self.get_head_node()
+    while current_node.get_next_node() is not None:
+      current_node = current_node.get_next_node()
+    new_node = Node(new_value)
+    current_node.set_next_node(new_node)
+
+#3
+if self.is_empty():
+      self.head = item_to_add
+    else:
+      self.tail.set_next_node(item_to_add)
+    self.size += 1
+    self.tail = item_to_add
