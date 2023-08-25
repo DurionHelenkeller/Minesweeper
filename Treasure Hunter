@@ -32,7 +32,7 @@ class GameScene extends Phaser.Scene {
         for (let y = 46; y < 437; y += 78)
       {
         plot = this.add.sprite(x, y, 'blank');
-        grid.push(plot)
+        grid.push(plot);
         }
       }
       // Create the coins from the grid created above  
