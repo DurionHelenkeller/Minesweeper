@@ -27,27 +27,23 @@ class GameScene extends Phaser.Scene {
       // The background is provided below
       this.add.sprite(240, 320, 'board');
       // Create the for loops to create the grid
-      for (let x = 46; x < 437; x += 78)
-      {
-        for (let y = 46; y < 437; y += 78)
-      {
-        plot = this.add.sprite(x, y, 'blank');
-        grid.push(plot);
-        }
-      }
+ for (let x = 46; x < 437; x += 78) {
+  for (let y = 46; y < 437; y += 78) {
+    plot = this.add.sprite(x, y, 'blank');
+    grid.push(plot);
+  }
+ }
       // Create the coins from the grid created above  
-      function decideCoinLocations() {
-        while (coinCollection.length < 5) {
+    function decideCoinLocations() {
+      while (coinCollection.length < 5) {
   let randIdx = Math.floor(Math.random() * grid.length)
   let selectedPlot = grid[randIdx]
   if (coinCollection.indexOf(selectedPlot) === -1) {
-  coinCollection.push(selectedPlot)
-  }
-  
-        }
+  coinCollection.push(selectedPlot) 
+       }
       }
-      // Create the function which decides the coin locations here 
-      decideCoinLocations();
+    }
+    decideCoinLocations();
       } // End of Create
 
       update() {
@@ -90,15 +86,15 @@ class GameScene extends Phaser.Scene {
 
 						//playerCheck starts here
             function playerCheck() {
-              for (let i = 0; i < coinCollection.length; i++) {
-                if (clickedPlot === coinCollection[i]){
-                  playerCoins += 1;
-                  clickedPlot.setTexture('playerGold');
-                  break;
-                } else {
-                  clickedPlot.setTexture('dig')
-                };
+      for (let i = 0; i < coinCollection.length; i++) {
+          if (clickedPlot === coinCollection[i]){
+        playerCoins = playerCoins + 1;
+        clickedPlot.setTexture('playerGold')
+        break;
+              } else {
+                clickedPlot.setTexture('dig')
               }
+      }
               if (playerCoins !== 3) {
                 setTimeout(function () {
                   compTurn()
