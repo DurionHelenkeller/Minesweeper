@@ -3,7 +3,7 @@ let plot;
 let grid = [];
 let coinCollection = [];
 let playerCoins = 0;
-let compCoins = 0
+let compCoins = 0;
 class GameScene extends Phaser.Scene {
     constructor() {
       super({
@@ -13,14 +13,14 @@ class GameScene extends Phaser.Scene {
 
     preload() {
       // We have preloaded our images such as the background, the coins, the digging image etc.
-      this.load.image('board', 'https://content.codecademy.com/courses/learn-phaser/Treasure%20Hunter/Gameboard%20Default.png', {
+      this.load.image('board', 'https://codecademy-content.s3.amazonaws.com/courses/learn-phaser/Treasure+Hunter/Gameboard+Default.png', {
         frameWidth: 240,
         frameHeight: 320
       });
-      this.load.image('gold', 'https://content.codecademy.com/courses/learn-phaser/Treasure%20Hunter/gold%20coin.png');
-      this.load.image('playerGold', 'https://content.codecademy.com/courses/learn-phaser/Treasure%20Hunter/gold%20coin%20shine.png');
-      this.load.image('dig', 'https://content.codecademy.com/courses/learn-phaser/Treasure%20Hunter/dug%20hole.png');
-      this.load.image('blank', 'https://content.codecademy.com/courses/learn-phaser/Treasure%20Hunter/blank.png'); // These are the actual images / tiles that load on top of 'board'
+      this.load.image('gold', 'https://codecademy-content.s3.amazonaws.com/courses/learn-phaser/Treasure+Hunter/gold+coin.png');
+      this.load.image('playerGold', 'https://codecademy-content.s3.amazonaws.com/courses/learn-phaser/Treasure+Hunter/gold+coin+shine.png');
+      this.load.image('dig', 'https://codecademy-content.s3.amazonaws.com/courses/learn-phaser/Treasure+Hunter/dug+hole.png');
+      this.load.image('blank', 'https://codecademy-content.s3.amazonaws.com/courses/learn-phaser/Treasure+Hunter/blank.png'); // These are the actual images / tiles that load on top of 'board'
     }
 
     create() {
@@ -34,6 +34,8 @@ class GameScene extends Phaser.Scene {
   }
  }
       // Create the coins from the grid created above  
+
+      // Create the function which decides the coin locations here 
     function decideCoinLocations() {
       while (coinCollection.length < 5) {
   let randIdx = Math.floor(Math.random() * grid.length)
