@@ -1,0 +1,307 @@
+
+
+class GameScene extends Phaser.Scene {
+  constructor() {
+    super({
+      key: 'GameScene'
+    });
+  }
+  preload() {
+    this.load.image('Background', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/background.png');
+    this.load.image('Attack', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/button-attack.png');
+    this.load.image('Defend', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/button-defend.png');
+    this.load.image('Special', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/button-special.png');
+    this.load.spritesheet('Electric Mouse', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/electric-mouse.png', {
+
+      frameWidth: 165,
+      frameHeight: 250,
+      endFrame: 8
+    });
+    this.load.spritesheet('Owl', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/owl.png', {
+      frameWidth: 166.5,
+      frameHeight: 250,
+      endFrame: 8
+    });
+    this.load.spritesheet('Red Owl', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/owl-red.png', {
+      frameWidth: 166.5,
+      frameHeight: 250,
+      endFrame: 8
+    });
+    this.load.spritesheet('Blue Owl', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/owl-blue.png', {
+      frameWidth: 166.5,
+      frameHeight: 250,
+      endFrame: 8
+    });
+    this.load.spritesheet('Psychic Hairless Cat', 'https://content.codecademy.com/courses/learn-phaser/electric-mouse/psychic-cat.png', {
+      frameWidth: 166.5,
+      frameHeight: 250,
+      endFrame: 11
+    });
+  } // End of Preload
+
+  create() {
+    // Character objects
+    gameState.player = {
+      name: 'Electric Mouse',
+      health: 45,
+      frames: [{
+          key: 'playerIdle',
+          start: 0,
+          end: 2
+        },
+        {
+          key: 'playerAttack',
+          start: 3,
+          end: 4
+        },
+        {
+          key: 'playerDefend',
+          start: 5,
+          end: 6
+        },
+        {
+          key: 'playerSpecial',
+          start: 7,
+          end: 8
+        },
+      ],
+    };  
+
+    gameState.opponents = [{
+        name: 'Owl',
+        frames: [{
+            key: 'OwlIdle',
+            start: 0,
+            end: 2
+          },
+          {
+            key: 'OwlAttack',
+            start: 3,
+            end: 4
+          },
+          {
+            key: 'OwlDefend',
+            start: 5,
+            end: 6
+          },
+          {
+            key: 'OwlSpecial',
+            start: 7,
+            end: 8
+          },
+        ],
+        health: 10
+      },
+      {
+        name: 'Red Owl',
+        frames: [{
+            key: 'Red OwlIdle',
+            start: 0,
+            end: 2
+          },
+          {
+            key: 'Red OwlAttack',
+            start: 3,
+            end: 4
+          },
+          {
+            key: 'Red OwlDefend',
+            start: 5,
+            end: 6
+          },
+          {
+            key: 'Red OwlSpecial',
+            start: 7,
+            end: 8
+          },
+        ],
+        health: 12
+      },
+      {
+        name: 'Blue Owl',
+        frames: [{
+            key: 'Blue OwlIdle',
+            start: 0,
+            end: 2
+          },
+          {
+            key: 'Blue OwlAttack',
+            start: 3,
+            end: 4
+          },
+          {
+            key: 'Blue OwlDefend',
+            start: 5,
+            end: 6
+          },
+          {
+            key: 'Blue OwlSpecial',
+            start: 7,
+            end: 8
+          },
+        ],
+        health: 15
+      },
+      {
+        name: 'Psychic Hairless Cat',
+        frames: [{
+            key: 'Psychic Hairless CatIdle',
+            start: 0,
+            end: 3
+          },
+          {
+            key: 'Psychic Hairless CatAttack',
+            start: 4,
+            end: 7
+          },
+          {
+            key: 'Psychic Hairless CatDefend',
+            start: 8,
+            end: 9
+          },
+          {
+            key: 'Psychic Hairless CatSpecial',
+            start: 10,
+            end: 11
+          },
+        ],
+        health: 30
+      }
+    ];
+
+    // Set the current opponent
+    gameState.computer = gameState.opponents[0];
+
+    // Create background
+    this.add.sprite(240, 320, 'Background').setScale(.5)
+
+    // Create initial sprites
+    gameState.player.sprite = this.add.sprite(100, 237, 'Electric Mouse')
+    gameState.computerSprite = this.add.sprite(375, 237, 'Owl') // first enemy
+
+    // Create player animation
+    gameState.player.frames.forEach(frame => {
+      this.anims.create({
+        key: frame.key,
+        frames: this.anims.generateFrameNumbers(gameState.player.name, {
+          start: frame.start,
+          end: frame.end,
+        }),
+        frameRate: 3,
+        repeat: -1,
+        yoyo: true
+      });
+    });
+
+    // Create computer animation
+    gameState.opponents.forEach(opponent => {
+      opponent.frames.forEach(frame => {
+        this.anims.create({
+          key: frame.key,
+          frames: this.anims.generateFrameNumbers(opponent.name, {
+            start: frame.start,
+            end: frame.end
+          }),
+          frameRate: 3,
+          repeat: -1,
+          yoyo: true
+        });
+      });
+    });
+
+    // Play initial animation
+    gameState.player.sprite.anims.play('playerIdle');
+    gameState.computerSprite.anims.play(`${gameState.computer.name}Idle`);
+
+    // Set up buttons
+    gameState.attackButton = this.add.sprite(250, 325, 'Attack').setInteractive();
+    gameState.defendButton = this.add.sprite(250, 425, 'Defend').setInteractive();
+    gameState.specialButton = this.add.sprite(250, 525, 'Special').setInteractive();
+
+    // Information and healthbars
+   const style = {
+    font: '16px Helvetica',
+    fill: '#00000',
+    padding: {
+      x: 6,
+      y: 7
+    },
+   }
+
+   gameState.playerMove = this.add.text(65, 140, '', style);
+   gameState.computerMove = this.add.text(320, 140, '', style);
+   gameState.information = this.add.text(140, 80, '', style);
+   gameState.playerHealthBar = this.add.text(45, 45, `HP: ${gameState.player.health}`, style);
+   gameState.computerHealthBar = this.add.text(375, 45, `HP: ${gameState.computer.health}`, style);
+
+    // Attack
+    gameState.attackButton.on('pointerup', () => {
+      this.pauseIdle()
+      if (game.input.enabled) {
+        let randomMove = Math.floor(Math.random() * 3);
+        if (randomMove === 0) {
+          
+        }
+      }
+    });
+    // Defend
+    gameState.defendButton.on('pointerup', () => {
+      this.pauseIdle()
+      if (game.input.enabled) {
+
+      }
+    });
+    // Special Attack
+    gameState.specialButton.on('pointerup', () => {
+      this.pauseIdle()
+      if (game.input.enabled) {
+
+      }
+    });
+  } // End of Create
+
+  update() {
+    this.waveCheck();
+  } // End of Update 
+
+  // Helper Functions
+  pauseIdle() {
+    setTimeout(function () {
+      if(gameState.waveCount !== 4 && gameState.player.health > 0) {
+      gameState.player.sprite.anims.play('playerIdle');
+      gameState.computerSprite.anims.play(`${gameState.computer.name}Idle`);
+      }
+    }, 1000)
+  }
+
+  waveCheck() {
+    if (gameState.computer.health <= 0) {
+      gameState.waveCount++;
+      gameState.information.text = `The ${gameState.computer.name} has fainted!`;
+      gameState.computer = gameState.opponents[gameState.waveCount];
+      gameState.playerMove.text = '';
+      gameState.computerMove.text = '';
+      if (gameState.waveCount > 3) {
+      this.scene.stop('GameScene');
+      this.scene.start('EndScene');
+      } else {
+        game.input.enabled = false;
+        setTimeout(function () {
+          const text = gameState.waveCount === 3
+          ? 'The Final Boss, the Psychic Hairless Cat!'
+          : `A ${gameState.computer.name} appears`;
+          gameState.information.text = text;
+          gameState.computerHealthBar.text = `HP: ${gameState.computer.health}`;
+          gameState.computerSprite.setTexture(gameState.computer.name);
+          setTimeout(function () {
+            game.input.enabled = true;
+          }, 1500);
+        }, 1000);
+      }
+    } else if (gameState.player.health <= 0) {
+      this.scene.stop('GameScene');
+      this.scene.start('EndScene');
+    }
+  }
+
+} // end GameScene
