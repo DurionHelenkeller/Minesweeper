@@ -220,13 +220,13 @@ class GameScene extends Phaser.Scene {
 
     // Information and healthbars
    const style = {
-    font: '16px Helvetica',
-    fill: '#00000',
-    padding: {
-      x: 6,
-      y: 7
-    },
-   }
+      font: '16px Helvetica',
+      fill: '#000000',
+      padding: {
+        x: 6,
+        y: 7
+      }
+    }
 
    gameState.playerMove = this.add.text(65, 140, '', style);
    gameState.computerMove = this.add.text(320, 140, '', style);
