@@ -1,4 +1,17 @@
-
+let gameState = {
+  player: {},
+  computer: {},
+  computerSprite: {},
+  playerHealthBar: {},
+  computerHealthBar: {},
+  attackButton: {},
+  defendButton: {},
+  specialButton: {},
+  playerMove: {},
+  computerMove: {},
+  waveCount: 0,
+  opponent: []
+};
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -240,10 +253,34 @@ class GameScene extends Phaser.Scene {
       if (game.input.enabled) {
         let randomMove = Math.floor(Math.random() * 3);
         if (randomMove === 0) {
+          gameState.information.text = `Ouch! Both lost 1 HP...`;
           gameState.playerMove.text = "Attack!";
           gameState.computerMove.text = "Attack!";
           gameState.player.health -= 1;
-          gameState.computer.health -= 1; 
+          gameState.computer.health -= 1;
+          gameState.playerHealthBar.text = `HP: ${gameState.player.health}`;
+          gameState.computerHealthBar.text = `HP: ${gameState.computer.health}`;
+          gameState.player.sprite.anims.play('playerAttack');
+          gameState.computerSprite.anims.play(`${gameState.computer.name}Attack`);
+        } else if (randomMove === 1) {
+          gameState.information.text = `Electric Mouse's attack failed! It loses 1 HP!`;
+          gameState.playerMove.text = "Attack!";
+          gameState.computerMove.text = "Defend!";
+          gameState.player.health -= 1;
+          gameState.computer.health -= 1;
+          gameState.playerHealthBar.text = `HP: ${gameState.player.health}`;
+          gameState.computerHealthBar.text = `HP: ${gameState.computer.health}`;
+          gameState.player.sprite.anims.play( 'playerAttack');
+          gameState.computerSprite.anims.play(`${gameState.computer.name}Defend`);
+        } else {
+          gameState.information.text = `The ${gameState.computerSprite.texture.key} loses 4 HP!`;
+          gameState.playerMove.text = "Attack!";
+          gameState.computerMove.text = "Special Attack!";
+          gameState.computer.health -= 4;
+          gameState.playerHealthBar.text = `HP: ${gameState.player.health}`;
+          gameState.computerHealthBar.text = `HP: ${gameState.computer.health}`;
+          gameState.player.sprite.anims.play( 'playerAttack');
+          gameState.computerSprite.anims.play(`${gameState.computer.name}Special`);
         }
       }
     });
