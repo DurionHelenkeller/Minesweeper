@@ -240,7 +240,10 @@ class GameScene extends Phaser.Scene {
       if (game.input.enabled) {
         let randomMove = Math.floor(Math.random() * 3);
         if (randomMove === 0) {
-          
+          gameState.playerMove.text = "Attack!";
+          gameState.computerMove.text = "Attack!";
+          gameState.player.health -= 1;
+          gameState.computer.health -= 1; 
         }
       }
     });
