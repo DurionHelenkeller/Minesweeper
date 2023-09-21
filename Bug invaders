@@ -91,6 +91,8 @@ function create() {
     // Since the game is over, physics is paused
     this.physics.pause();
 
+    gameState.enemyVelocity = 1;
+
     // Add in text for players to know what to do afterwards
     this.add.text(210, 250, 'Game Over \n Click to restart', { fontSize: '15px', fill: '#000'});
   });
@@ -109,8 +111,8 @@ function create() {
     gameState.active = false;
     gameState.enemyVelocity = 1;
     this.physics.pause();
-
-  });
+    this.add.text(210, 250, 'Game Over \n Click to restart', { fontSize: '15px', fill: '#000'});
+    });
 
 }
 
@@ -134,6 +136,7 @@ function update() {
     if (numOfTotalEnemies() === 0) {
       gameState.active = false;
       this.physics.pause();
+      gameState.enemyVelocity = 1;
       this.add.text(100, 250, `You have won!`, { fontSize: '15px', fill: '#000000'});
       
     } else {
