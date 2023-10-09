@@ -93,10 +93,10 @@ class JumpScene extends Phaser.Scene {
 
     if (platformCount > 10 && !emitter) {
       emitter = particles.createEmitter({
-        x: {min: 0, max: gameOptions.width},
+        x: { min: 0, max: gameOptions.width },
         y: gameOptions.height + 10,
         lifespan: 2500,
-        speedY: { min: -300, max: -500},
+        speedY: { min: -300, max: -500 },
         scale: .5,
         quantity: 5,
         blendMode: 'ADD'
