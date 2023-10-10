@@ -116,9 +116,23 @@ class GameScene extends Phaser.Scene {
 
   update() {
     if (gameState.readyForTheNextOrder === true) {
-      gameState.readyForTheNextOrder === false
+      gameState.readyForTheNextOrder = false
+      gameState.customerIsReady = false
+
+      // Move the next customer up to the order table
+      gameState.currentCustomer = gameState.customers.children.entries[gameState.customersServedCount];
+      let tween = this.tween.add({
+        targets: gameState.currentCustomer,
+        duration: 1000,
+        delay: 100,
+        angle: 90,
+        x: gameState.player.x,
+        ease: 'Power2'
+      })
     }
   }
+
+  
 
   /* WAVES */
   // Generate wave
