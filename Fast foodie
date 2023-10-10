@@ -119,9 +119,9 @@ class GameScene extends Phaser.Scene {
       gameState.readyForNextOrder = false
       gameState.customerIsReady = false
 
-      // Move the next customer up to the order table
+// Move the next customer up to the order table
       gameState.currentCustomer = gameState.customers.children.entries[gameState.customersServedCount];
-      let tween = this.tween.add({
+      let tween = this.tweens.add({
         targets: gameState.currentCustomer,
         duration: 1000,
         delay: 100,
