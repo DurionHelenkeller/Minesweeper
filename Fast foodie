@@ -115,8 +115,8 @@ class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (gameState.readyForTheNextOrder === true) {
-      gameState.readyForTheNextOrder = false
+    if (gameState.readyForNextOrder === true) {
+      gameState.readyForNextOrder = false
       gameState.customerIsReady = false
 
       // Move the next customer up to the order table
