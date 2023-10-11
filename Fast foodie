@@ -9,7 +9,7 @@ const gameState = {
   totalWaveCount: 3,
   countdownTimer: 1500,
   readyForNextOrder: true,
-  customersServedCount: 0
+  customersServedCount: 0,
 }
 
 // Gameplay scene
@@ -112,6 +112,15 @@ class GameScene extends Phaser.Scene {
     gameState.customers = this.add.group();
     this.generateWave();
 
+    // Keep track of meals fed to customers 
+    gameState.currentMeal = this.add.group()
+    gameState.currentMeal.fullnessValue = 0
+
+    // Create keys
+    gameState.keys.Enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    gameState.keys.A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    gameState.keys.S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    gameState.keys.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
 
   update() {
@@ -127,11 +136,18 @@ class GameScene extends Phaser.Scene {
         delay: 100,
         angle: 90,
         x: gameState.player.x,
-        ease: 'Power2'
-      })
+        ease: 'Power2',
+        onComplete: function() {
+          gameState.customerIsReady = true;
+          gameState.currentCustomer.meterContainer.visible = true;
+        }})
     }
   }
-
+  // Display number of customers to serve
+  updateCustomerCountText() {
+    gameState.customersLeftCount = gameState.totalCustomerCount - gameState.customersServedCount
+    gameState.customerCountText.setText(`Customers left: ${gameState.customersLeftCount}`)
+  }
   
 
   /* WAVES */
@@ -139,6 +155,9 @@ class GameScene extends Phaser.Scene {
   generateWave() {
     // Add the total number of customers per wave here:
     gameState.totalCustomerCount = Math.ceil(Math.random() * 10) * gameState.currentWaveCount;
+
+    // Update customers left text
+    this.updateCustomerCountText();
 
     for (let i = 0; i < gameState.totalCustomerCount; i++) {
       // Create your container below and add your customers to it below:
@@ -166,11 +185,11 @@ class GameScene extends Phaser.Scene {
       }
 
       // Edit the meterWidth
-      let meterWidth = 200;
+      let meterWidth = customerContainer.fullnessCapacity * 10;
       customerContainer.meterContainer = this.add.container(0, customer.y + (meterWidth / 2));
       
       // Add the customerContainer.meterContainer to customerContainer
-
+      customerContainer.add(customerContainer.meterContainer)
 
       // Add meter base
       customerContainer.meterBase = this.add.rectangle(-130, customer.y, meterWidth, 33, 0x707070).setOrigin(0);
@@ -187,7 +206,7 @@ class GameScene extends Phaser.Scene {
       customerContainer.fullnessMeterBlocks = [];
 
       // Create fullness meter blocks
-      for (let j = 0; j < 1; j++) {
+      for (let j = 0; j < customerContainer.fullnessCapacity; j++) {
         customerContainer.fullnessMeterBlocks[j] = this.add.rectangle(customerContainer.meterBase.x, customer.y - (10 * j), 10, 20, 0xDBD53A).setOrigin(0);
         customerContainer.fullnessMeterBlocks[j].setStrokeStyle(2, 0xB9B42E);
         customerContainer.fullnessMeterBlocks[j].angle = -90;
@@ -197,6 +216,36 @@ class GameScene extends Phaser.Scene {
 
       // Hide meters
       customerContainer.meterContainer.visible = false;
+    }
+  }
+  // Method for placing food
+  placeFood(food, fullnessValue){
+    if (gameState.currentMeal.children.entries.length < 3 && gameState.customerIsReady === true){
+      let xPosition = gameState.tray.x-90
+      switch (gameState.currentMeal.children.entries.length){
+        case 1:
+          xPosition += 90;
+          break;
+        case 2:
+          xPosition += 180;
+          break;
+      }
+      gameState.currentMeal.create(xPosition, gameState.tray.y, food).setScale(0.5)
+
+    gameState.currentMeal.fullnessValue+=fullnessValue;
+      for (let ii = 0; ii < gameState.currentMeal.fullnessValue; ii++){
+        if (ii < gameState.currentCustomer.fullnessCapacity){
+          if (gameState.currentMeal.fullnessValue === gameState.currentMeal.fullnessCapacity){
+            gameState.currentCustomer.fullnessMeterBlocks[ii].setFillStyle(0x3ADB40);
+            gameState.currentCustomer.fullnessMeterBlocks[ii].setStrokeStyle(2, 0x2EB94E);
+          }else if (gameState.currentMeal.fullnessValue > gameState.currentMeal.fullnessCapacity){
+            gameState.currentCustomer.fullnessMeterBlocks[ii].setFillStyle(0xDB533A);
+            gameState.currentCustomer.fullnessMeterBlocks[ii].setStrokeStyle(2, 0xB92E2E);
+        }else {gameState.currentCustomer.fullnessMeterBlocks[ii].setFillStyle(0xFFFA81);
+        }
+        gameState.sfx.placeFood.play();
+        }
+      }
     }
   }
 }
