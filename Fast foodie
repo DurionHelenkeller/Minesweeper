@@ -160,9 +160,8 @@ class GameScene extends Phaser.Scene {
             delay: 200,
             x: '-=200',
             duration: 1500
-          });
-        }
-    }
+            
+          });}}
     if (Phaser.Input.Keyboard.JustDown(gameState.keys.A)){
       this.placeFood('Burger', 5)
       }else if (Phaser.Input.Keyboard.JustDown(gameState.keys.S)){
