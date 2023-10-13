@@ -152,6 +152,16 @@ class GameScene extends Phaser.Scene {
           gameState.customerIsReady = true;
           gameState.currentCustomer.meterContainer.visible = true;
         }})
+// Move the next waiting customer foward
+        for (let iv = gameState.customersServedCount + 1; iv < gameState.customers.children.entries.length; iv ++){
+          gameState.nextCustomer = gameState.customers.children.entires[iv]
+          let nextCustomer = this.tweens.add({
+            targets: gameState.nextCustomer,
+            delay: 200,
+            x: '-=200',
+            duration: 1500
+          });
+        }
     }
     if (Phaser.Input.Keyboard.JustDown(gameState.keys.A)){
       this.placeFood('Burger', 5)
