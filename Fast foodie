@@ -131,10 +131,12 @@ class GameScene extends Phaser.Scene {
 // Move the finished customer forward and all finished customers forward
       for (let iii = 0; iii < gameState.customersServedCount; iii++){
         let previousCustomer = this.tweens.add({
+          targets: gameState.customers.children.entries[iii],
           duration: 750,
           x: '-=300',
-          angle: 0
+          angle: 0,
         })
+        gameState.customers.children.entries[iii].meterContainer.visible = false
       }
 
 // Move the next customer up to the order table
