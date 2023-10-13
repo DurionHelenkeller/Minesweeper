@@ -154,9 +154,9 @@ class GameScene extends Phaser.Scene {
         }})
 // Move the next waiting customer foward
         for (let iv = gameState.customersServedCount + 1; iv < gameState.customers.children.entries.length; iv ++){
-          gameState.nextCustomer = gameState.customers.children.entires[iv]
+          gameState.nextCustomer = gameState.customers.children.entries[iv]
           let nextCustomer = this.tweens.add({
-            targets: gameState.nextCustomer,
+            targets: gameState.nextCustomers,
             delay: 200,
             x: '-=200',
             duration: 1500
