@@ -129,15 +129,7 @@ class GameScene extends Phaser.Scene {
       gameState.customerIsReady = false
 
 // Move the finished customer forward and all finished customers forward
-      for (let iii = 0; iii < gameState.customersServedCount; iii++){
-        let previousCustomer = this.tweens.add({
-          targets: gameState.customers.children.entries[iii],
-          duration: 750,
-          x: '-=300',
-          angle: 0,
-        })
-        gameState.customers.children.entries[iii].meterContainer.visible = false
-      }
+      
 
 // Move the next customer up to the order table
       gameState.currentCustomer = gameState.customers.children.entries[gameState.customersServedCount];
@@ -160,13 +152,6 @@ class GameScene extends Phaser.Scene {
       }else if (Phaser.Input.Keyboard.JustDown(gameState.keys.D)){
       this.placeFood('Shake')
       }else if (Phaser.Input.Keyboard.JustDown(gameState.keys.Enter)){
-        if (gameState.readyForNextorder === false && gameState.customerisReady === true){
-          this.moveCustomerLine();
-          this.updateCustomerCountText();
-          gameState.timer.paused = true;
-          gameState.timer.remove();
-          gameState.timer = this.addEvent(gameState.timer)
-        }
       }
   }
   // Display number of customers to serve
@@ -273,11 +258,5 @@ class GameScene extends Phaser.Scene {
         }
       }
     }
-  }
-  moveCustomerLine(){
-    gameState.currentMeal.clear(true);
-    gameState.currentMeal.fullnessValue = 0;
-    gameState.customersServedCount+=1
-    gameState.readyForNextOrder = true
   }
 }
