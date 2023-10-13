@@ -146,17 +146,12 @@ class GameScene extends Phaser.Scene {
         }})
     }
     if (Phaser.Input.Keyboard.JustDown(gameState.keys.A)){
-
       this.placeFood('Burger', 5)
-
       }else if (Phaser.Input.Keyboard.JustDown(gameState.keys.S)){
-
       this.placeFood('Fries', 3)
-
       }else if (Phaser.Input.Keyboard.JustDown(gameState.keys.D)){
-
       this.placeFood('Shake', 1)
-
+      }else if (Phaser.Input.Keyboard.JustDown(gameState.keys.Enter)){
       }
   }
   // Display number of customers to serve
