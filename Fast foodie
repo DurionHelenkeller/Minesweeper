@@ -263,5 +263,6 @@ class GameScene extends Phaser.Scene {
     gameState.currentMeal.clear(true);
     gameState.currentMeal.fullnessValue = 0;
     gameState.customersServedCount+=1
-    gameState.
+    gameState.readyForNextOrder = true 
+  }
 }
