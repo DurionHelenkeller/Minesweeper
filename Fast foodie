@@ -122,8 +122,9 @@ class GameScene extends Phaser.Scene {
     gameState.keys.S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     gameState.keys.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     // Create stars
+
     gameState.starGroup = this.add.group();
-    //this.drawStars();
+    this.drawStars();
   }
 
   update() {
@@ -295,10 +296,10 @@ class GameScene extends Phaser.Scene {
 
 //Method To Draw Stars
 
-/*drawStars(){
+drawStars(){
   gameState.starGroup.clear(true);
-  for (let star = 0; star < gameState.starRating; star++) {
+  for (let star = 0; star < gameState.starRating; star++){
     let spacer = star*50
         gameState.starGroup.create(20 + spacer, 20, 'Star-Full').setScale(0.5).setOrigin(0)
   }
-}*/
+}
