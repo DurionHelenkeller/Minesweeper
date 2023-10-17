@@ -292,7 +292,6 @@ class GameScene extends Phaser.Scene {
     gameState.customersServedCount+=1
     gameState.readyForNextOrder = true 
   }
-}
 
 //Method To Draw Stars
 drawStars(){
@@ -302,4 +301,7 @@ drawStars(){
         gameState.starGroup.create(20 + spacer, 20, 'Star-Full').setScale(0.5).setOrigin(0)
   }
 }
+  
+}
+
 
