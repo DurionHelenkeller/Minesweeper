@@ -294,13 +294,15 @@ class GameScene extends Phaser.Scene {
   }
 
   //Method To Draw Stars
+  
   drawStars(){
     gameState.starGroup.clear(true);
     for (let star = 0; star < gameState.starRating; star++){
       let spacer = star*50
-          gameState.starGroup.create(20 + spacer, 20, 'Star-Full').setScale(0.5).setOrigin(0)
+          gameState.starGroup.create( 20 + spacer, 20, 'Star-full').setScale(0.5).setOrigin(0)
     }
-  }  
+  }
 }
+
 
 
