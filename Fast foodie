@@ -302,7 +302,24 @@ class GameScene extends Phaser.Scene {
           gameState.starGroup.create( 20 + spacer, 20, 'Star-full').setScale(0.5).setOrigin(0)
     }
   }
+
+  // Method to update stars, customer colour,
+  updateStars(fullnessValue, fullnessCapacity){
+    if (fullnessValue === fullnessCapacity){
+      console.log(gameState.currentCustomer.fullnessValue)
+      gameState.currentCustomer.list[0].setTint(0x3ADB40);
+      gameState.sfx.servingCorrect.play();
+      gameState.score+=100;
+      gameState.scoreText.setText(`Score: ${gameState.score}`);
+      if (gameState.starRating < 5){
+        gameState.starRating+=1
+        this.drawStars();
+      }
+    }
+  }
 }
+
+
 
 
 
