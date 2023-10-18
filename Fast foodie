@@ -314,12 +314,18 @@ class GameScene extends Phaser.Scene {
       if (gameState.starRating < 5){
         gameState.starRating+=1
         this.drawStars();
+        if (gameState.starRating === 5){
+          gameState.sfx.fiveStars.play();
+        }
       }
+    }
+    if (fullnessValue < fullnessCapacity){
+      gameState.currentCustomer.list[0].setTint(0xDB533A)
+      gameState.sfx.servingIncorrect.play();
+      gameState.starRating-=1;
+      this.drawStars();
     }
   }
 }
-
-
-
 
 
