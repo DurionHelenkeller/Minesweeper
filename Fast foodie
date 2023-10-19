@@ -192,6 +192,15 @@ class GameScene extends Phaser.Scene {
         gameState.currentCustomer.timerMeterBody.width = gameState.currentCustomer.meterBase.width - (gameState.currentCustomer.meterBase.width * timePassed)
         if (timePassed > 0.25 && timePassed < 0.75){
           gameState.currentCustomer.timerMeterBody.setFillStyle(0xFF9D00)
+        }else if (timePassed < 0.75){
+          gameState.currentCustomer.timerMeterBody.setFillStyle(0xDB533A)
+        }
+        if (timePassed === 1){
+          this.moveCustomerLine();
+          this.updateCustomerCountText();
+          gameState.timer.paused = true;
+          gameState.timer.remove();
+          gameState.timer = this.time.addEvent(gameState.timer)
         }
       }
   }
