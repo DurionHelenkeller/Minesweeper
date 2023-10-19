@@ -184,7 +184,7 @@ class GameScene extends Phaser.Scene {
         let timePassed = gameState.timer.getProgress()
         gameState.currentCustomer.timerMeterBody.width = gameState.currentCustomer.meterBase.width - (gameState.currentCustomer.meterBase.width * timePassed)
         if (timePassed > 0.25 && timePassed < 0.75){
-          gameState.currentCustomer.timerMeterBody.setFillStyle(0xFF9d00)
+          gameState.currentCustomer.timerMeterBody.setFillStyle(0xFF9D00)
         }
       }
   }
