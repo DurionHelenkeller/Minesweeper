@@ -330,7 +330,7 @@ class GameScene extends Phaser.Scene {
     if (fullnessValue < fullnessCapacity){
       gameState.currentCustomer.list[0].setTint(0xDB533A);
       gameState.sfx.servingIncorrect.play();
-      gameState.starRating-=2;
+      gameState.starRating-=1;
       this.drawStars();
     }
     if (fullnessValue > fullnessCapacity){
