@@ -125,6 +125,13 @@ class GameScene extends Phaser.Scene {
     // Create stars
     gameState.starGroup = this.add.group();
     this.drawStars();
+
+    // Create timer
+    gameState.timer = this.time.addEvent({
+      delay: gameState.timeToServe,
+      loop: false,
+      paused: true
+    })
   }
 
   update() {
