@@ -7,7 +7,7 @@ const gameState = {
   gameSpeed: 3,
   currentMusic: {},
   totalWaveCount: 3,
-  countdownTimer: 1500,
+  //countDownTimer: 1500,
   readyForNextOrder: true,
   customersServedCount: 0,
 }
@@ -341,3 +341,5 @@ class GameScene extends Phaser.Scene {
     }
   }
 }
+
+
