@@ -203,6 +203,16 @@ class GameScene extends Phaser.Scene {
           gameState.timer = this.time.addEvent(gameState.timer)
         }
       }
+      if (gameState.starRating <= 0){
+        gameState.currentMusic.stop();
+        this.scene.stop('GameScene');
+        this.scene.start('LoseScene');
+      }
+      if (gameState.currentWaveCount > 3){
+        gameState.currentMusic.stop();
+        this.scene.stop('GameScene');
+        this.scene.start('WinScene');
+      }
   }
   // Display number of customers to serve
   updateCustomerCountText() {
@@ -314,7 +324,13 @@ class GameScene extends Phaser.Scene {
     gameState.currentMeal.clear(true);
     gameState.currentMeal.fullnessValue = 0;
     gameState.customersServedCount+=1
-    gameState.readyForNextOrder = true 
+    gameState.readyForNextOrder = true
+    if (gameState.customersServedCount === gameState.totalCustomerCount){
+      gameState.currentWaveCount+=1;
+      gameState.gameSpeed-=1;
+      gameState.readyForNextOrder = false;
+      this.destroyWave();
+    } 
   }
 
   //Method To Draw Stars
@@ -355,6 +371,22 @@ class GameScene extends Phaser.Scene {
       gameState.starRating-=1;
       this.drawStars();
     }
+  }
+  destroyWave(){
+    gameState.sfx.nextWave.play()
+    for (let vi = 0; vi < gameState.customers.children.entires.length; vi++){
+      let customer = gameState.customers.children.entries[vi];
+      let tween = this.tweens.add({
+        targets: customer,
+        angle: 0,
+        x: '-=1000',
+      })
+    }
+    gameState.customersServedCount = 0
+    gameState.customers.clear(true);
+    this.generateWave();
+    gameState.readyForNextOrder = true
+    gameState.waveCountText.setText(`${gameState.currentWaveCount}/3`)
   }
 }
 
