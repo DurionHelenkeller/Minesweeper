@@ -163,6 +163,7 @@ class GameScene extends Phaser.Scene {
         onComplete: function() {
           gameState.customerIsReady = true;
           gameState.currentCustomer.meterContainer.visible = true;
+          gameState.timer.paused = false
         }})
 // Move the next waiting customer foward
         for (let iv = gameState.customersServedCount + 1; iv < gameState.customers.children.entries.length; iv ++){
@@ -400,5 +401,3 @@ class GameScene extends Phaser.Scene {
   gameState.timeToServe = 5000;
  }
 }
-
-
