@@ -74,6 +74,7 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.restartGame();
     // Stop, reassign, and play the new music
     gameState.currentMusic.stop();
     gameState.currentMusic = this.sound.add('gameplayTheme');
@@ -388,6 +389,16 @@ class GameScene extends Phaser.Scene {
     gameState.readyForNextOrder = true
     gameState.waveCountText.setText(`${gameState.currentWaveCount}/3`)
   }
+ restartGame(){
+  gameState.score = 0;
+  gameState.starRating = 5;
+  gameState.currentWaveCount = 1;
+  gameState.gameSpeed = 3;
+  gameState.totalWaveCount = 3;
+  gameState.readyForNextOrder = true;
+  gameState.customersServedCount = 0;
+  gameState.timeToServe = 5000;
+ }
 }
 
 
