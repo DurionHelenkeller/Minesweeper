@@ -376,7 +376,7 @@ class GameScene extends Phaser.Scene {
   }
   destroyWave(){
     gameState.sfx.nextWave.play()
-    for (let vi = 0; vi < gameState.customers.children.entires.length; vi++){
+    for (let vi = 0; vi < gameState.customers.children.entries.length; vi++){
       let customer = gameState.customers.children.entries[vi];
       let tween = this.tweens.add({
         targets: customer,
