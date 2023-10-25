@@ -1,11 +1,12 @@
 import random
 
 name = "Andy"
-response = ""
 question = "Will I get a girlfriend?"
+response = ""
+
 
 random_number = random.randint(1, 9)
-print(random_number)
+# print(random_number)
 
 if random_number == 1:
   answer = "Sure why not"
@@ -38,4 +39,4 @@ else:
   answer = "Error"
   
 print(name + " asks " + question)
-print("Magic 8 Ball's answer: " + response)
+print("Magic 8 Ball's answer: " + answer)
